@@ -1,3 +1,5 @@
+include MoneyRails::ActionViewExtension
+
 class Product < ActiveRecord::Base
 
   monetize :price_cents, numericality: true
@@ -10,4 +12,7 @@ class Product < ActiveRecord::Base
   validates :quantity, presence: true
   validates :category, presence: true
 
+  def display_price
+    humanized_money_with_symbol(self.price, { no_cents_if_whole: false })
+  end
 end
