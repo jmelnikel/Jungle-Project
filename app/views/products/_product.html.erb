@@ -9,15 +9,32 @@
     <%= product.description %>
   </p>
   <footer class="actions">
-    <%= button_to add_item_cart_path(product_id: product.id), class: 'btn btn-primary' , method: :post do %>
-      <%= fa_icon "shopping-cart", text: 'Add' %>
-    <% end %>
+    <% if product.quantity == 0 %>
+      <%= button_to add_item_cart_path(product_id: product.id), disabled: true, class: 'btn btn-primary' do %>
+        <%= fa_icon "shopping-cart", text: 'Add'  %>
+      <% end %>
+    <% else %>
+      <%= button_to add_item_cart_path(product_id: product.id), class: 'btn btn-primary' , method: :post do %>
+        <%= fa_icon "shopping-cart", text: 'Add', className: 'disable'  %>
+      <% end %>
+    <% end %>    
+    
     <%= link_to product, class: 'btn btn-default pull-right' do %>
       Details &raquo;
     <% end %>
   </footer>
 
-  <aside class="price">
-    <%= product.display_price %>
-  </aside>
+  <% if product.quantity == 0 %>
+    <aside class="sold-out">
+      SOLD OUT!
+    </aside>
+    <aside class="price">
+      <%= product.display_price %>
+    </aside>
+  <% else %>    
+    <aside class="price">
+      <%= product.display_price %>
+    </aside>
+  <% end %>
+
 </article>
