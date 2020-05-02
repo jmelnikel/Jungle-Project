@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :products, except: [:edit, :update, :show]
     resources :categories, only: [:index, :new, :create]
   end
-
+  
   get '/signup' => 'users#new'
   post '/users' => 'users#create'
 
